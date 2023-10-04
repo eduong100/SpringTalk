@@ -1,0 +1,35 @@
+DROP TABLE IF EXISTS chat_logs CASCADE;
+DROP TABLE IF EXISTS chat_state CASCADE;
+DROP TABLE IF EXISTS questions CASCADE;
+
+DROP SEQUENCE IF EXISTS chat_logs_seq;
+DROP SEQUENCE IF EXISTS chat_state_seq;
+DROP SEQUENCE IF EXISTS questions_seq;
+
+CREATE SEQUENCE chat_logs_seq START WITH 1 INCREMENT BY 50;
+CREATE SEQUENCE chat_state_seq START WITH 1 INCREMENT BY 50;
+CREATE SEQUENCE questions_seq START WITH 1 INCREMENT BY 50;
+
+CREATE TABLE chat_logs (
+    id BIGINT NOT NULL,
+    timestamp TIMESTAMP(6),
+    message VARCHAR(255),
+    response VARCHAR(255),
+    username VARCHAR(255) NOT NULL,
+    action VARCHAR(255),
+    PRIMARY KEY (id)
+);
+CREATE TABLE chat_state (
+    id BIGINT NOT NULL,
+    state VARCHAR(255) NOT NULL,
+    username VARCHAR(255) NOT NULL UNIQUE,
+    PRIMARY KEY (id)
+);
+CREATE TABLE questions (
+    id BIGINT NOT NULL,
+    name VARCHAR(255) NOT NULL UNIQUE,
+    parent VARCHAR(255),
+    previous_decision VARCHAR(255),
+    text VARCHAR(255) NOT NULL,
+    PRIMARY KEY (id)
+);
